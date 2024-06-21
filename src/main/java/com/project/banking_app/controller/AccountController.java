@@ -1,7 +1,6 @@
 package com.project.banking_app.controller;
 
 import com.project.banking_app.dto.AccountDto;
-import com.project.banking_app.entity.Account;
 import com.project.banking_app.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
-    private AccountService accountService;
+    private final AccountService accountService;
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
     }

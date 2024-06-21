@@ -8,13 +8,12 @@ import com.project.banking_app.service.AccountService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 public class accountServiceImpl implements AccountService {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     public accountServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
@@ -59,13 +58,13 @@ public class accountServiceImpl implements AccountService {
     @Override
     public List<AccountDto> getAllAccounts() {
         List<Account> accounts=accountRepository.findAll();
-        return accounts.stream().map((account) -> AccountMapper.mapToAccountDto(account)).collect(Collectors.toList());
+        return accounts.stream().map(AccountMapper::mapToAccountDto).collect(Collectors.toList());
 
     }
 
     @Override
     public void deleteAccount(Long id) {
-        Account account=accountRepository.findById(id).orElseThrow(()-> new RuntimeException("Account not found"));
+        accountRepository.findById(id).orElseThrow(() -> new RuntimeException("Account not found"));
         accountRepository.deleteById(id);
     }
 
